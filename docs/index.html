@@ -1,87 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>QA Demo App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCP QA Automation Demo</title>
     <style>
-      body { font-family: Arial, sans-serif; margin: 40px; background: #f5f7fb; line-height: 1.6; }
-      .card { max-width: 720px; margin: auto; background: white; padding: 24px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-      input, button { display: block; width: 100%; margin: 8px 0; padding: 10px; font-size: 16px; }
-      #dashboard, #mcp-summary { display: none; margin-top: 16px; padding: 12px; background: #eef8f0; border-radius: 8px; }
-      .visible { display: block !important; }
-      .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
-      .panel { padding: 12px; border: 1px solid #dce5ef; border-radius: 8px; background: #fafcff; }
-      .panel h3 { margin-top: 0; }
-      code { background: #f2f4f7; padding: 2px 4px; border-radius: 4px; }
+      :root {
+        --bg: #07111f;
+        --panel: #0f172a;
+        --panel-2: #111c33;
+        --text: #e5ecff;
+        --muted: #95a7c4;
+        --accent: #4f8cff;
+        --accent-2: #7c3aed;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(135deg, var(--bg), #16263f);
+        color: var(--text);
+        line-height: 1.7;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 20px 70px;
+      }
+      .hero {
+        background: linear-gradient(135deg, rgba(79,140,255,0.2), rgba(124,58,237,0.2));
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      }
+      h1 { font-size: 2.2rem; margin-top: 0; margin-bottom: 10px; }
+      .lead { font-size: 1.05rem; color: var(--muted); max-width: 760px; }
+      .badge {
+        display: inline-block;
+        background: rgba(79,140,255,0.2);
+        color: #bcd2ff;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        margin-bottom: 18px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 18px;
+        margin-top: 24px;
+      }
+      .card {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 20px;
+      }
+      .card h2 { margin-top: 0; font-size: 1.15rem; }
+      ul { padding-left: 18px; color: var(--muted); }
+      li { margin-bottom: 8px; }
+      .highlight {
+        color: #fff;
+        font-weight: 600;
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 18px;
+      }
+      .panel {
+        background: var(--panel-2);
+        border-radius: 14px;
+        padding: 16px;
+      }
+      .panel h3 { margin-top: 0; margin-bottom: 8px; }
+      .steps {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .step {
+        background: rgba(255,255,255,0.06);
+        border-radius: 999px;
+        padding: 8px 12px;
+        color: #dce7ff;
+      }
+      .footer {
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      @media (max-width: 800px) {
+        .grid, .compare { grid-template-columns: 1fr; }
+        .hero { padding: 24px; }
+      }
     </style>
   </head>
   <body>
-    <div class="card">
-      <h1>QA Automation Demo</h1>
-      <p>This page shows a simple login flow and explains how an MCP-based assistant can work with a browser to observe actions, generate automation artifacts, and guide test creation.</p>
+    <div class="wrap">
+      <section class="hero">
+        <div class="badge">Model Context Protocol + QA Automation</div>
+        <h1>From a prompt to real test automation</h1>
+        <p class="lead">
+          This demo shows how an MCP-enabled assistant can understand a natural-language request,
+          observe a browser flow, and generate automation artifacts like feature files, step definitions,
+          and page objects in a few simple steps.
+        </p>
 
-      <h2>What this MCP server does</h2>
-      <ul>
-        <li>Receives a natural-language prompt from a chat or client.</li>
-        <li>Launches a real browser and performs an observed flow.</li>
-        <li>Generates a feature file, step definitions, and page object automatically.</li>
-        <li>Lets the user move from <strong>prompt → browser action → test artifacts</strong> in one workflow.</li>
-      </ul>
+        <div class="grid">
+          <div class="card">
+            <h2>What this MCP workflow does</h2>
+            <ul>
+              <li>Receives a prompt such as <span class="highlight">“Open Google and search for automation demo”</span>.</li>
+              <li>Launches a real browser and performs the interaction.</li>
+              <li>Generates reusable test assets for Cucumber and Playwright.</li>
+              <li>Connects chat-style instructions with actual automation execution.</li>
+            </ul>
+            <div class="steps">
+              <span class="step">Prompt</span>
+              <span class="step">Browser action</span>
+              <span class="step">Artifacts</span>
+              <span class="step">Execution</span>
+            </div>
+          </div>
 
-      <h2>General automation scripts vs MCP workflow</h2>
-      <div class="comparison">
-        <div class="panel">
-          <h3>General automation scripts</h3>
-          <ul>
-            <li>Usually hard-coded and tied to one fixed scenario.</li>
-            <li>Script logic is written first, then executed.</li>
-            <li>Good for stable, repetitive paths with known selectors.</li>
-            <li>Requires manual updates when the flow changes.</li>
-          </ul>
+          <div class="card">
+            <h2>Why it is useful</h2>
+            <ul>
+              <li>Reduces manual setup when creating new test flows.</li>
+              <li>Makes automation easier for non-developers to describe.</li>
+              <li>Shows a modern agent-style workflow for QA teams.</li>
+              <li>Bridges natural language with real browser automation.</li>
+            </ul>
+          </div>
         </div>
-        <div class="panel">
-          <h3>MCP-based workflow</h3>
-          <ul>
-            <li>Starts with a plain-language instruction.</li>
-            <li>Uses a tool or agent to observe the browser and generate automation output.</li>
-            <li>Creates reusable test assets such as feature files and page objects.</li>
-            <li>Bridges chat prompts with real execution and test generation.</li>
-          </ul>
+
+        <div class="compare">
+          <div class="panel">
+            <h3>Traditional automation</h3>
+            <ul>
+              <li>Hard-coded scripts written manually.</li>
+              <li>Requires explicit selectors and test steps.</li>
+              <li>Needs more maintenance as flows change.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>MCP-assisted automation</h3>
+            <ul>
+              <li>Starts from a simple prompt.</li>
+              <li>Uses a tool/agent to observe the browser.</li>
+              <li>Generates structured test assets automatically.</li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <form id="login-form">
-        <input id="username" placeholder="Username" />
-        <input id="password" type="password" placeholder="Password" />
-        <button id="login-button" type="button">Login</button>
-      </form>
-
-      <div id="dashboard">
-        <h2>Dashboard</h2>
-        <p>Welcome back, admin.</p>
-      </div>
-
-      <button id="mcp-button" type="button">Ask MCP assistant</button>
-      <div id="mcp-summary">MCP summary: observed the flow, generated the automation structure, and prepared the next step for execution.</div>
+        <p class="footer">
+          This page is now focused on explaining the concept clearly and showcasing the MCP workflow without the old login UI.
+        </p>
+      </section>
     </div>
-
-    <script>
-      const loginButton = document.getElementById('login-button');
-      const dashboard = document.getElementById('dashboard');
-      const mcpButton = document.getElementById('mcp-button');
-      const mcpSummary = document.getElementById('mcp-summary');
-
-      loginButton.addEventListener('click', () => {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        if (username === 'admin' && password === 'password') {
-          dashboard.classList.add('visible');
-        }
-      });
-
-      mcpButton.addEventListener('click', () => {
-        mcpSummary.classList.add('visible');
-      });
-    </script>
   </body>
 </html>
