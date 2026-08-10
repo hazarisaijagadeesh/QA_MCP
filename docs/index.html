@@ -3,67 +3,101 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MCP QA Automation Demo</title>
+    <title>MCP QA Automation Platform</title>
     <style>
       :root {
         --bg: #07111f;
         --panel: #0f172a;
-        --panel-2: #111c33;
-        --text: #e5ecff;
-        --muted: #95a7c4;
+        --panel-2: #101b30;
+        --text: #f4f7ff;
+        --muted: #9fb0cc;
         --accent: #4f8cff;
         --accent-2: #7c3aed;
+        --line: rgba(255,255,255,0.12);
       }
 
       * { box-sizing: border-box; }
       body {
         margin: 0;
-        font-family: Inter, Arial, sans-serif;
-        background: linear-gradient(135deg, var(--bg), #16263f);
+        font-family: "Segoe UI", Inter, Arial, sans-serif;
         color: var(--text);
+        background: linear-gradient(135deg, #07111f 0%, #111d33 45%, #162742 100%);
         line-height: 1.7;
       }
       .wrap {
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 40px 20px 70px;
+        padding: 40px 20px 80px;
       }
       .hero {
-        background: linear-gradient(135deg, rgba(79,140,255,0.2), rgba(124,58,237,0.2));
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 24px;
-        padding: 32px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 36px;
+        box-shadow: 0 24px 70px rgba(0,0,0,0.28);
+        backdrop-filter: blur(10px);
       }
-      h1 { font-size: 2.2rem; margin-top: 0; margin-bottom: 10px; }
-      .lead { font-size: 1.05rem; color: var(--muted); max-width: 760px; }
-      .badge {
-        display: inline-block;
-        background: rgba(79,140,255,0.2);
-        color: #bcd2ff;
-        padding: 6px 12px;
-        border-radius: 999px;
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .brand {
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
         font-size: 0.9rem;
-        margin-bottom: 18px;
+        color: #b8cdfd;
+      }
+      .pill {
+        display: inline-block;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(79,140,255,0.16);
+        color: #cfe0ff;
+        font-size: 0.9rem;
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin: 0 0 12px;
+        line-height: 1.2;
+      }
+      .lead {
+        font-size: 1.05rem;
+        color: var(--muted);
+        max-width: 780px;
+        margin: 0 0 24px;
       }
       .grid {
         display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
+        grid-template-columns: 1.05fr 0.95fr;
         gap: 18px;
         margin-top: 24px;
       }
       .card {
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.045);
+        border: 1px solid var(--line);
         border-radius: 18px;
         padding: 20px;
       }
-      .card h2 { margin-top: 0; font-size: 1.15rem; }
+      .card h2 { margin-top: 0; margin-bottom: 10px; font-size: 1.2rem; }
       ul { padding-left: 18px; color: var(--muted); }
       li { margin-bottom: 8px; }
-      .highlight {
-        color: #fff;
-        font-weight: 600;
+      .highlight { color: white; font-weight: 600; }
+      .steps {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .step {
+        background: rgba(255,255,255,0.06);
+        border-radius: 999px;
+        padding: 7px 12px;
+        color: #dceaff;
+        font-size: 0.9rem;
       }
       .compare {
         display: grid;
@@ -72,94 +106,125 @@
         margin-top: 18px;
       }
       .panel {
-        background: var(--panel-2);
-        border-radius: 14px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        border-radius: 16px;
         padding: 16px;
       }
-      .panel h3 { margin-top: 0; margin-bottom: 8px; }
-      .steps {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 16px;
-      }
-      .step {
-        background: rgba(255,255,255,0.06);
-        border-radius: 999px;
-        padding: 8px 12px;
-        color: #dce7ff;
+      .panel h3 { margin-top: 0; margin-bottom: 8px; font-size: 1.03rem; }
+      .section-title {
+        margin-top: 28px;
+        margin-bottom: 10px;
+        font-size: 1.05rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #b8cdfd;
       }
       .footer {
         margin-top: 24px;
         color: var(--muted);
         font-size: 0.95rem;
       }
-      @media (max-width: 800px) {
+      @media (max-width: 900px) {
         .grid, .compare { grid-template-columns: 1fr; }
-        .hero { padding: 24px; }
       }
     </style>
   </head>
   <body>
     <div class="wrap">
       <section class="hero">
-        <div class="badge">Model Context Protocol + QA Automation</div>
-        <h1>From a prompt to real test automation</h1>
+        <div class="topbar">
+          <div class="brand">QA Automation • MCP Demo</div>
+          <div class="pill">Enterprise-ready workflow</div>
+        </div>
+
+        <h1>From plain-language prompts to production-ready test automation</h1>
         <p class="lead">
-          This demo shows how an MCP-enabled assistant can understand a natural-language request,
-          observe a browser flow, and generate automation artifacts like feature files, step definitions,
-          and page objects in a few simple steps.
+          This experience demonstrates how a modern QA team can use Model Context Protocol (MCP)
+          to turn a simple request into real browser interaction, automation artifacts, and reusable
+          test structure without manually scripting every step.
         </p>
 
         <div class="grid">
           <div class="card">
-            <h2>What this MCP workflow does</h2>
+            <h2>How the workflow works</h2>
             <ul>
-              <li>Receives a prompt such as <span class="highlight">“Open Google and search for automation demo”</span>.</li>
-              <li>Launches a real browser and performs the interaction.</li>
-              <li>Generates reusable test assets for Cucumber and Playwright.</li>
-              <li>Connects chat-style instructions with actual automation execution.</li>
+              <li>A user provides a prompt such as <span class="highlight">“Open Google and search for automation demo”</span>.</li>
+              <li>The MCP server launches a real browser and observes the flow.</li>
+              <li>It creates structured automation assets such as feature files, step definitions, and page objects.</li>
+              <li>The result is a faster path from intent to executable test design.</li>
             </ul>
             <div class="steps">
-              <span class="step">Prompt</span>
-              <span class="step">Browser action</span>
-              <span class="step">Artifacts</span>
-              <span class="step">Execution</span>
+              <span class="step">Natural language</span>
+              <span class="step">Observed browser action</span>
+              <span class="step">Generated test assets</span>
+              <span class="step">Reusable automation</span>
             </div>
           </div>
 
           <div class="card">
-            <h2>Why it is useful</h2>
+            <h2>Why teams adopt it</h2>
             <ul>
-              <li>Reduces manual setup when creating new test flows.</li>
-              <li>Makes automation easier for non-developers to describe.</li>
-              <li>Shows a modern agent-style workflow for QA teams.</li>
-              <li>Bridges natural language with real browser automation.</li>
+              <li>Reduces handoff friction between business users, QA engineers, and developers.</li>
+              <li>Speeds up test creation for repetitive or newly introduced workflows.</li>
+              <li>Provides a modern agent-assisted approach for digital quality engineering.</li>
+              <li>Helps teams standardize automation practices across environments.</li>
             </ul>
           </div>
         </div>
 
+        <div class="section-title">Comparison</div>
         <div class="compare">
           <div class="panel">
             <h3>Traditional automation</h3>
             <ul>
-              <li>Hard-coded scripts written manually.</li>
-              <li>Requires explicit selectors and test steps.</li>
-              <li>Needs more maintenance as flows change.</li>
+              <li>Requires manual scripting from the start.</li>
+              <li>Depends on fixed selectors and written steps.</li>
+              <li>Needs ongoing maintenance when flows evolve.</li>
             </ul>
           </div>
           <div class="panel">
             <h3>MCP-assisted automation</h3>
             <ul>
-              <li>Starts from a simple prompt.</li>
-              <li>Uses a tool/agent to observe the browser.</li>
-              <li>Generates structured test assets automatically.</li>
+              <li>Starts with a simple prompt or request.</li>
+              <li>Uses an agent/tool to observe and interpret behavior.</li>
+              <li>Generates reusable automation assets automatically.</li>
             </ul>
           </div>
         </div>
 
+        <div class="section-title">How to use it</div>
+        <div class="card">
+          <ol>
+            <li>Install dependencies:<br /><code>npm install</code></li>
+            <li>Start the MCP server:<br /><code>npm run mcp:server</code></li>
+            <li>Send a prompt such as <span class="highlight">“Open Google and search for automation demo”</span> from an MCP-enabled chat client.</li>
+            <li>Observe the browser action and review the generated feature, step, and page files.</li>
+            <li>Run the flow locally with:<br /><code>npm run test:showcase</code></li>
+          </ol>
+        </div>
+
+        <div class="section-title">Sample prompts</div>
+        <div class="card">
+          <ul>
+            <li><span class="highlight">Open Google and search for automation demo</span></li>
+            <li><span class="highlight">Launch the login page and verify the sign-in form</span></li>
+            <li><span class="highlight">Navigate to a demo website and check the main heading</span></li>
+          </ul>
+        </div>
+
+        <div class="section-title">What happens after the prompt is given</div>
+        <div class="card">
+          <ul>
+            <li>The MCP tool receives the request and triggers the browser flow.</li>
+            <li>The browser opens, performs the requested action, and captures the observed result.</li>
+            <li>Automation files such as the feature file, step definitions, and page object are generated automatically.</li>
+            <li>You can then review, refine, and run the generated test locally.</li>
+          </ul>
+        </div>
+
         <p class="footer">
-          This page is now focused on explaining the concept clearly and showcasing the MCP workflow without the old login UI.
+          This page now includes sample prompts and a clear explanation of what happens after a prompt is submitted.
         </p>
       </section>
     </div>
