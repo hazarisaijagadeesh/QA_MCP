@@ -1,0 +1,22 @@
+{
+  "name": "mcp-qa-demo",
+  "version": "1.0.0",
+  "description": "Sample Playwright + Cucumber demo for general vs MCP-assisted automation",
+  "private": true,
+  "scripts": {
+    "test:demo": "cucumber-js --require support/**/*.js --require steps/**/*.js --format progress",
+    "test:general": "cucumber-js --tags @general --require support/**/*.js --require steps/**/*.js --format progress",
+    "test:mcp": "cucumber-js --tags @mcp --require support/**/*.js --require steps/**/*.js --format progress",
+    "test:showcase": "cucumber-js --tags @demo --require support/**/*.js --require steps/**/*.js --format progress",
+    "mcp:server": "node mcp-server.js",
+    "demo:both": "npm run test:general && npm run test:mcp",
+    "ts:demo": "node -r ts-node/register src/demo.ts"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^11.0.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "playwright": "^1.49.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}

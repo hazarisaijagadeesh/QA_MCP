@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>QA Demo App</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 40px; background: #f5f7fb; line-height: 1.6; }
+      .card { max-width: 720px; margin: auto; background: white; padding: 24px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+      input, button { display: block; width: 100%; margin: 8px 0; padding: 10px; font-size: 16px; }
+      #dashboard, #mcp-summary { display: none; margin-top: 16px; padding: 12px; background: #eef8f0; border-radius: 8px; }
+      .visible { display: block !important; }
+      .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+      .panel { padding: 12px; border: 1px solid #dce5ef; border-radius: 8px; background: #fafcff; }
+      .panel h3 { margin-top: 0; }
+      code { background: #f2f4f7; padding: 2px 4px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>QA Automation Demo</h1>
+      <p>This page shows a simple login flow and explains how an MCP-based assistant can work with a browser to observe actions, generate automation artifacts, and guide test creation.</p>
+
+      <h2>What this MCP server does</h2>
+      <ul>
+        <li>Receives a natural-language prompt from a chat or client.</li>
+        <li>Launches a real browser and performs an observed flow.</li>
+        <li>Generates a feature file, step definitions, and page object automatically.</li>
+        <li>Lets the user move from <strong>prompt → browser action → test artifacts</strong> in one workflow.</li>
+      </ul>
+
+      <h2>General automation scripts vs MCP workflow</h2>
+      <div class="comparison">
+        <div class="panel">
+          <h3>General automation scripts</h3>
+          <ul>
+            <li>Usually hard-coded and tied to one fixed scenario.</li>
+            <li>Script logic is written first, then executed.</li>
+            <li>Good for stable, repetitive paths with known selectors.</li>
+            <li>Requires manual updates when the flow changes.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>MCP-based workflow</h3>
+          <ul>
+            <li>Starts with a plain-language instruction.</li>
+            <li>Uses a tool or agent to observe the browser and generate automation output.</li>
+            <li>Creates reusable test assets such as feature files and page objects.</li>
+            <li>Bridges chat prompts with real execution and test generation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <form id="login-form">
+        <input id="username" placeholder="Username" />
+        <input id="password" type="password" placeholder="Password" />
+        <button id="login-button" type="button">Login</button>
+      </form>
+
+      <div id="dashboard">
+        <h2>Dashboard</h2>
+        <p>Welcome back, admin.</p>
+      </div>
+
+      <button id="mcp-button" type="button">Ask MCP assistant</button>
+      <div id="mcp-summary">MCP summary: observed the flow, generated the automation structure, and prepared the next step for execution.</div>
+    </div>
+
+    <script>
+      const loginButton = document.getElementById('login-button');
+      const dashboard = document.getElementById('dashboard');
+      const mcpButton = document.getElementById('mcp-button');
+      const mcpSummary = document.getElementById('mcp-summary');
+
+      loginButton.addEventListener('click', () => {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        if (username === 'admin' && password === 'password') {
+          dashboard.classList.add('visible');
+        }
+      });
+
+      mcpButton.addEventListener('click', () => {
+        mcpSummary.classList.add('visible');
+      });
+    </script>
+  </body>
+</html>
